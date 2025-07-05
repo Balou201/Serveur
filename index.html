@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝓖∘𝕧𝕠𝓲𝓭𝖆 - Serveur Discord Officiel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #9B59B6; /* Violet */
+            --secondary-color: #BDC3C7; /* Gris clair */
+            --dark-bg: #2C3E50; /* Bleu nuit foncé */
+            --light-bg: #34495E; /* Bleu nuit légèrement plus clair */
+            --text-color: #FFFFFF;
+            --light-text: #ECF0F1;
+            --accent-color: #8E44AD; /* Violet plus foncé pour les accents */
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background-color: var(--light-bg);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5em;
+            color: var(--primary-color);
+            margin: 0;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(155, 89, 182, 0.5);
+        }
+
+        header p {
+            font-size: 1.3em;
+            color: var(--light-text);
+            margin-top: 10px;
+        }
+
+        nav {
+            background-color: var(--dark-bg);
+            padding: 10px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 18px;
+            transition: color 0.3s ease, background-color 0.3s ease;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        nav ul li a:hover::before, nav ul li a.active::before {
+            transform: translateX(0);
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: var(--light-bg);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            border: 1px solid rgba(155, 89, 182, 0.3);
+        }
+
+        section {
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 15px;
+            text-shadow: 0 0 8px rgba(155, 89, 182, 0.4);
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            margin-top: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+        }
+
+        .welcome-section {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .rule-card {
+            background-color: var(--dark-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(155, 89, 182, 0.2);
+        }
+
+        .rule-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+
+        .rule-card h3 {
+            color: var(--primary-color);
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 0;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .rule-card h3 .icon {
+            font-size: 1.8em;
+        }
+
+        .rule-card p {
+            color: var(--light-text);
+            font-size: 1em;
+        }
+
+        /* Style for Discord channel names/emojis */
+        .discord-channel-name {
+            font-weight: bold;
+            color: var(--primary-color);
+            background-color: rgba(155, 89, 182, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            white-space: nowrap; /* Prevents line breaks inside the channel name */
+        }
+        
+        /* General bolding for any text wrapped in <strong> */
+        strong {
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+            background-color: var(--light-bg);
+            color: var(--secondary-color);
+            font-size: 0.9em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 3em;
+            }
+
+            header p {
+                font-size: 1.1em;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+
+            .container {
+                margin: 30px auto;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 2.5em;
+            }
+
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>𝓖∘𝕧𝕠𝓲𝓭𝖆</h1>
+        <p>Le hub créatif et communautaire de G.voida pour vos requêtes et découvertes.</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#apropos">À Propos du Serveur</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section id="accueil" class="welcome-section">
+            <h2>Bienvenue sur 𝓖∘𝕧𝕠𝓲𝓭𝖆 !</h2>
+            <p>Ce serveur Discord est votre passerelle directe pour communiquer avec G.voida pour toutes vos requêtes. Conçu pour des échanges clairs et efficaces, il vous offre un moyen unique et dédié de le contacter.</p>
+            <p>Découvrez ses projets et accédez à un espace où vos demandes sont traitées avec le plus grand soin.</p>
+            <a href="https://discord.gg/ye8MhVUdWU" class="btn" target="_blank" rel="noopener noreferrer">Rejoindre le serveur Discord</a>
+        </section>
+
+        <section id="apropos">
+            <h2>À Propos du Serveur</h2>
+            <p>Le serveur Discord de 𝓖∘𝕧𝕠𝓲𝓭𝖆 est une plateforme exclusive dédiée à la communication directe pour toutes vos requêtes. Il vise à fournir un canal clair et organisé pour les interactions, garantissant que vos messages parviennent à la bonne personne et soient traités efficacement.</p>
+
+            <h3>Règles du Serveur</h3>
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <h3><span class="icon">🎯</span> Usage unique</h3>
+                    <p>Ce serveur est <strong>uniquement destiné à envoyer des requêtes à G.voida</strong> via le salon <span class="discord-channel-name">🧾・requête</span>. Toute autre discussion est interdite pour maintenir la clarté.</p>
+                </div>
+                <div class="rule-card">
+                    <h3><span class="icon">🤝</span> Respect et courtoisie</h3>
+                    <p>Les messages doivent être <strong>polis et respectueux</strong>. Tout propos insultant, discriminatoire ou inapproprié sera sanctionné sans avertissement.</p>
+                </div>
+                <div class="rule-card">
+                    <h3><span class="icon">✍️</span> Clarté des messages</h3>
+                    <p>Merci d’écrire des messages <strong>clairs et détaillés</strong>. Les messages incompréhensibles ou trop courts ne seront pas pris en compte pour assurer une communication efficace.</p>
+                </div>
+                <div class="rule-card">
+                    <h3><span class="icon">🚫</span> Contenu interdit</h3>
+                    <p>Aucun spam, lien malveillant, publicités non autorisées ou informations personnelles non pertinentes n'est autorisé sur le serveur. Le respect de cette règle est essentiel.</p>
+                </div>
+                <div class="rule-card">
+                    <h3><span class="icon">⚙️</span> Gestion automatisée</h3>
+                    <p>Un bot surveille le salon <span class="discord-channel-name">🧾・requête</span>. Tout message non conforme sera supprimé et entraînera un <strong>ban immédiat</strong> sans avertissement.</p>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 30px; font-style: italic; color: var(--secondary-color);">Merci à tous de respecter ces règles pour que le serveur fonctionne au mieux ! 🙏</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 𝓖∘𝕧𝕠𝓲𝓭𝖆. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Remove active class from all and add to clicked
+                document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Set active class on page load or scroll
+        const sections = document.querySelectorAll('section');
+        const navLi = document.querySelectorAll('nav ul li a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - sectionHeight / 3) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLi.forEach(li => {
+                li.classList.remove('active');
+                if (li.getAttribute('href').includes(current)) {
+                    li.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize active class for the first section on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstLink = document.querySelector('nav ul li a[href="#accueil"]');
+            if (firstLink) {
+                firstLink.classList.add('active');
+            }
+        });
+    </script>
+
+</body>
+</html>
